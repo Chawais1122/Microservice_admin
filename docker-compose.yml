@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  # postgresql container
+  admin-db:
+    container_name: admin-db
+    image: postgres:16.1
+    restart: always
+    ports:
+      - ${DB_PORT:?err}:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?err}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
+      POSTGRES_DB: ${POSTGRES_DB:?err}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - microservice
+
+volumes:
+  postgres:
+
+networks:
+  microservice:
